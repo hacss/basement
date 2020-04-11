@@ -1,0 +1,48 @@
+{
+  "name": "basement.hacss.io",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A place to Tinker with Hacss",
+  "main": "src/app.js",
+  "scripts": {
+    "postinstall": "mkdirp lib && nugget http://raw.githubusercontent.com/ai/autoprefixer-rails/master/vendor/autoprefixer.js -o lib/autoprefixer.js",
+    "test": "echo \"You should add some tests.\"",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "mkdirp": "^1.0.4",
+    "nugget": "^2.0.1"
+  },
+  "devDependencies": {
+    "ace-builds": "^1.4.9",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.5.2",
+    "hacss": "^0.8.8",
+    "html-webpack-plugin": "^4.2.0",
+    "html-webpack-tags-plugin": "^2.0.17",
+    "raw-loader": "^4.0.0",
+    "string-replace-loader": "^2.3.0",
+    "style-loader": "^1.1.3",
+    "terser": "^4.6.11",
+    "val-loader": "^2.1.1",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hacss/basement.hacss.io.git"
+  },
+  "keywords": [
+    "hacss",
+    "atomic",
+    "css",
+    "playground",
+    "repl"
+  ],
+  "author": "Nick Saunders",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hacss/basement.hacss.io/issues"
+  },
+  "homepage": "https://github.com/hacss/basement.hacss.io#readme"
+}
