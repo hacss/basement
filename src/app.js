@@ -70,18 +70,24 @@ const hacssPlugins = {
   `;
   editPanel.appendChild(editorTogglePanel);
 
-  const title = document.createElement("h1");
-  title.className = `
-    margin:0;
-    font-family:sans-serif;
-    font-weight:normal;
-    font-size:20px;
-    color:#cad1ce;
-    width:100%;
-    display:inline-flex;
-    align-items:center;
+  const title = document.createElement("div");
+  title.className = "width:100%; display:flex; align-items:center;";
+  title.innerHTML = `
+    <a href="https://hacss.io/">
+      <svg width="12.5px" height="16px" viewBox="0 0 400 512" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad0" x1="0" y1="0" x2="0" y2="100%">
+            <stop offset="62.5%" style="stop-color:white;stop-opacity:1" />
+            <stop offset="62.5%" style="stop-color:#9d9bad;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        <g fill="url(#grad1)">
+          <path fill="url(#grad0)" d="M16,0 v256 l16,16 l-32,32 l32,32 l-32,32 l32,32 l-32,32 l32,32 l-32,32 l16,16 h96 v-288 h128 a64,64 0 0 1 64,64 v224 h96 v-224 a160,160 1 0 0 -160,-160 h-128 v-128" />
+        </g>
+      </svg>
+    </a>
+    <div class="margin-left:8px; font-family:sans-serif; color:#fff;">Basement</div>
   `;
-  title.innerText = "Basement Hacss";
   editorTogglePanel.appendChild(title);
 
   const buttonClasses = `
