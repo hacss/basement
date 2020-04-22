@@ -30,6 +30,7 @@ module.exports = {
     }),
     new HtmlTagsPlugin({
       links: [
+        "https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap",
         "https://fonts.googleapis.com/css?family=Inter:300,400,500,700&display=swap",
       ],
       scripts: [

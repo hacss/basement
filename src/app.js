@@ -86,7 +86,7 @@ const hacssPlugins = {
         </g>
       </svg>
     </a>
-    <div class="margin-left:8px; font-family:$sans-serif; color:#9d9bad; font-size:22px;">Basement</div>
+    <div class="padding-top:1px; margin-left:6px; font-family:$display; color:#9d9bad; font-size:22px; line-height:1;">Basement</div>
   `;
   editorTogglePanel.appendChild(title);
 

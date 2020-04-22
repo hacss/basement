@@ -1,5 +1,8 @@
 exports.plugins = [
-  require("hacss/plugins/global-variables")({
-    "sans-serif": "'Inter', sans-serif",
+  require("hacss/plugins/indexed-variables")({
+    "font-family": {
+      "display": "'Do Hyeon', sans-serif",
+      "sans-serif": "'Inter', sans-serif",
+    },
   }),
 ];
