@@ -73,7 +73,7 @@ const hacssPlugins = {
   const title = document.createElement("div");
   title.className = "width:100%; display:flex; align-items:center;";
   title.innerHTML = `
-    <a href="https://hacss.io/">
+    <a href="https://hacss.io/" class="display:inline-flex; align-items:center;">
       <svg width="12.5px" height="16px" viewBox="0 0 400 512" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="grad0" x1="0" y1="0" x2="0" y2="100%">
@@ -86,7 +86,7 @@ const hacssPlugins = {
         </g>
       </svg>
     </a>
-    <div class="margin-left:8px; font-family:$sans-serif; color:#fff;">Basement</div>
+    <div class="margin-left:8px; font-family:$sans-serif; color:#9d9bad; font-size:22px;">Basement</div>
   `;
   editorTogglePanel.appendChild(title);
 
