@@ -86,7 +86,7 @@ const hacssPlugins = {
         </g>
       </svg>
     </a>
-    <div class="margin-left:8px; font-family:sans-serif; color:#fff;">Basement</div>
+    <div class="margin-left:8px; font-family:$sans-serif; color:#fff;">Basement</div>
   `;
   editorTogglePanel.appendChild(title);
 
@@ -98,7 +98,7 @@ const hacssPlugins = {
     margin-bottom:0;
     margin-right:0;
     margin-left:2px;
-    font-family:sans-serif;
+    font-family:$sans-serif;
     font-size:14px;
     border-radius:0;
     outline:none;

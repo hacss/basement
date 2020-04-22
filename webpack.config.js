@@ -29,7 +29,12 @@ module.exports = {
       },
     }),
     new HtmlTagsPlugin({
-      tags: ["ace/ace.js"],
+      links: [
+        "https://fonts.googleapis.com/css?family=Inter:300,400,500,700&display=swap",
+      ],
+      scripts: [
+        "ace/ace.js",
+      ],
       append: false,
     }),
   ],
@@ -66,7 +71,7 @@ module.exports = {
           {
             loader: "string-replace-loader",
             options: {
-              search: `<link rel="stylesheet" href="styles.css" />\n`,
+              search: /<link.*rel="stylesheet".*>\s*/g,
               replace: "",
             },
           },
