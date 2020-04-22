@@ -19,10 +19,6 @@ module.exports = {
         flatten: true,
       },
       {
-        from: "lib/autoprefixer.js",
-        transform: content => terser.minify(content.toString()).code,
-      },
-      {
         from: "CNAME",
       },
     ]),
@@ -33,11 +29,11 @@ module.exports = {
       },
     }),
     new HtmlTagsPlugin({
-      tags: ["ace/ace.js", "autoprefixer.js"],
+      tags: ["ace/ace.js"],
       append: false,
     }),
   ],
-  externals: ["ace", "autoprefixer"],
+  externals: ["ace"],
   module: {
     rules: [
       {
@@ -72,6 +68,26 @@ module.exports = {
             options: {
               search: `<link rel="stylesheet" href="styles.css" />\n`,
               replace: "",
+            },
+          },
+        ],
+      },
+      {
+        test: /\/test\/config\.js$/,
+        use: [
+          {
+            loader: "string-replace-loader",
+            options: {
+              multiple: [
+                {
+                  search: "../plugins/global-variables.js",
+                  replace: "hacss/plugins/global-variables",
+                },
+                {
+                  search: "../plugins/indexed-variables.js",
+                  replace: "hacss/plugins/indexed-variables",
+                },
+              ],
             },
           },
         ],
