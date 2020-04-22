@@ -2,6 +2,7 @@ const hacss = require("hacss");
 const testConfig = require("hacss/test/config.js");
 const example = require("hacss/test/index.html");
 const ace = require("ace");
+const scope = require("scope-css");
 
 const hacssPlugins = {
   "global-variables": require("hacss/plugins/global-variables.js"),
@@ -141,6 +142,7 @@ const hacssPlugins = {
   editorTogglePanel.appendChild(configButton);
 
   const previewPanel = document.createElement("div");
+  previewPanel.id = "previewPanel";
   previewPanel.className = `
     flex-grow:0;
     flex-shrink:0;
@@ -170,7 +172,7 @@ const hacssPlugins = {
       }
 
       try {
-        style.textContent = hacss(code, parsedConfig);
+        style.textContent = scope(hacss(code, parsedConfig), "#previewPanel");
         previewPanel.innerHTML = code;
       }
       catch (_) {
