@@ -173,7 +173,7 @@ const hacssPlugins = {
 
       try {
         style.textContent = scope(hacss(code, parsedConfig), "#previewPanel");
-        previewPanel.innerHTML = code;
+        previewPanel.innerHTML = code.replace("<!DOCTYPE html>", "");
       }
       catch (_) {
         // TODO: Fix issue upstream.

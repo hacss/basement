@@ -12,7 +12,6 @@
     "ace-builds": "^1.4.9",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.5.2",
-    "hacss": "^1.0.9",
     "html-webpack-plugin": "^4.2.0",
     "html-webpack-tags-plugin": "^2.0.17",
     "raw-loader": "^4.0.0",
@@ -40,5 +39,8 @@
   "bugs": {
     "url": "https://github.com/hacss/basement.hacss.io/issues"
   },
-  "homepage": "https://github.com/hacss/basement.hacss.io#readme"
+  "homepage": "https://github.com/hacss/basement.hacss.io#readme",
+  "dependencies": {
+    "hacss": "git+https://github.com/hacss/hacss.git"
+  }
 }
