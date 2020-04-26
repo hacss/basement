@@ -1,7 +1,8 @@
 const hacss = require("hacss");
-const testConfig = require("hacss/test/config.js");
 const example = require("hacss/test/index.html");
+const exampleConfig = require("hacss/test/config.js");
 const ace = require("ace");
+const autoprefixer = require("autoprefixer");
 const scope = require("scope-css");
 
 const hacssPlugins = {
@@ -45,7 +46,10 @@ const hacssPlugins = {
   const configEditor = document.createElement("div");
   editPanel.appendChild(configEditor);
 
-  markupEditor.className = configEditor.className = `
+  const optionsEditor = document.createElement("div");
+  editPanel.appendChild(optionsEditor);
+
+  markupEditor.className = configEditor.className = optionsEditor.className = `
     position:absolute;
     top:40px;
     right:8px;
@@ -57,6 +61,16 @@ const hacssPlugins = {
   `;
 
   configEditor.classList.add("display:none;");
+  optionsEditor.classList.add("display:none;");
+
+  optionsEditor.innerHTML = `
+    <div class="margin:16px; font-family:$sans-serif; font-size:16px; color:#fff;">
+      <label>
+        <input type="checkbox" checked id="autoprefixerOption" />
+        Enable Autoprefixer
+      </label>
+    </div>
+  `;
 
   const editorTogglePanel = document.createElement("div");
   editorTogglePanel.className = `
@@ -120,26 +134,47 @@ const hacssPlugins = {
 
   const markupButton = document.createElement("button");
   const configButton = document.createElement("button");
+  const optionsButton = document.createElement("button");
+
+  markupButton.className = activeButtonClasses;
+  configButton.className = optionsButton.className = inactiveButtonClasses;
+
+  const buttons = [markupButton, configButton, optionsButton];
+  buttons.forEach(button => editorTogglePanel.appendChild(button));
+
+  const setActiveButton = b => {
+    b.className = activeButtonClasses;
+    buttons
+      .filter(btn => btn !== b)
+      .forEach(btn => btn.className = inactiveButtonClasses);
+  };
+
+  const features = [markupEditor, configEditor, optionsEditor];
+
+  const setActiveFeature = f => {
+    f.classList.remove("display:none;");
+    features
+      .filter(feat => feat !== f)
+      .forEach(feat => feat.classList.add("display:none;"));
+  };
 
   markupButton.innerHTML = "Markup";
-  markupButton.className = activeButtonClasses;
   markupButton.addEventListener("click", () => {
-    configButton.className = inactiveButtonClasses;
-    markupButton.className = activeButtonClasses;
-    markupEditor.classList.remove("display:none;");
-    configEditor.classList.add("display:none;");
+    setActiveButton(markupButton);
+    setActiveFeature(markupEditor);
   });
-  editorTogglePanel.appendChild(markupButton);
 
   configButton.innerHTML = "Configuration";
-  configButton.className = inactiveButtonClasses;
   configButton.addEventListener("click", () => {
-    configButton.className = activeButtonClasses;
-    markupButton.className = inactiveButtonClasses;
-    markupEditor.classList.add("display:none;");
-    configEditor.classList.remove("display:none;");
+    setActiveButton(configButton);
+    setActiveFeature(configEditor);
   });
-  editorTogglePanel.appendChild(configButton);
+
+  optionsButton.innerHTML = "Options";
+  optionsButton.addEventListener("click", () => {
+    setActiveButton(optionsButton);
+    setActiveFeature(optionsEditor);
+  });
 
   const previewPanel = document.createElement("div");
   previewPanel.id = "previewPanel";
@@ -152,8 +187,8 @@ const hacssPlugins = {
   `;
   container.appendChild(previewPanel);
 
-  const [ markupCallback, configCallback ] = usePreview(
-    (code, config) => {
+  const [ markupCallback, configCallback, optionsCallback ] = usePreview(
+    (code, config, options) => {
       let parsedConfig;
 
       try {
@@ -172,7 +207,13 @@ const hacssPlugins = {
       }
 
       try {
-        style.textContent = scope(hacss(code, parsedConfig), "#previewPanel");
+        const css = scope(hacss(code, parsedConfig), "#previewPanel");
+        style.textContent =
+          options.autoprefixer
+          ? autoprefixer.process(css).css
+          : css
+          ;
+
         previewPanel.innerHTML = code.replace("<!DOCTYPE html>", "");
       }
       catch (_) {
@@ -181,7 +222,8 @@ const hacssPlugins = {
       }
     },
     example,
-    testConfig,
+    exampleConfig,
+    { autoprefixer: true },
   );
 
   initEditor(
@@ -194,16 +236,22 @@ const hacssPlugins = {
   initEditor(
     configEditor,
     "javascript",
-    testConfig,
+    exampleConfig,
     configCallback,
   );
 
-  function usePreview(callback, initialCode, initialConfig) {
+  autoprefixerOption.addEventListener("change", () => optionsCallback({
+    autoprefixer: autoprefixerOption.checked,
+  }));
+
+  function usePreview(callback, initialCode, initialConfig, initialOptions) {
     let code = initialCode;
     let config = initialConfig;
+    let options = initialOptions;
     return [
-      c => callback(code = c, config),
-      c => callback(code, config = c),
+      c => callback(code = c, config, options),
+      c => callback(code, config = c, options),
+      o => callback(code, config, options = o),
     ];
   }
 

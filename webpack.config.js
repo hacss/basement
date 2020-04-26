@@ -19,6 +19,10 @@ module.exports = {
         flatten: true,
       },
       {
+         from: "lib/autoprefixer.js",
+         transform: content => terser.minify(content.toString()).code,
+       },
+      {
         from: "CNAME",
       },
     ]),
@@ -35,11 +39,12 @@ module.exports = {
       ],
       scripts: [
         "ace/ace.js",
+        "autoprefixer.js",
       ],
       append: false,
     }),
   ],
-  externals: ["ace"],
+  externals: ["ace", "autoprefixer"],
   module: {
     rules: [
       {
