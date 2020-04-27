@@ -3,7 +3,8 @@ const example = require("hacss/test/index.html");
 const exampleConfig = require("hacss/test/config.js");
 const ace = require("ace");
 const autoprefixer = require("autoprefixer");
-const scope = require("scope-css");
+const postcss = require("postcss");
+const scopify = require("postcss-scopify");
 
 const hacssPlugins = {
   "global-variables": require("hacss/plugins/global-variables.js"),
@@ -207,12 +208,15 @@ const hacssPlugins = {
       }
 
       try {
-        const css = scope(hacss(code, parsedConfig), "#previewPanel");
+        const css = hacss(code, parsedConfig);
+
         style.textContent =
-          options.autoprefixer
-          ? autoprefixer.process(css).css
-          : css
-          ;
+          postcss(
+            [scopify("#previewPanel")]
+              .concat(options.autoprefixer ? [autoprefixer] : [])
+          )
+            .process(css)
+            .css;
 
         previewPanel.innerHTML = code.replace("<!DOCTYPE html>", "");
       }
