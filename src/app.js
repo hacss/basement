@@ -65,10 +65,40 @@ const hacssPlugins = {
   optionsEditor.classList.add("display:none;");
 
   optionsEditor.innerHTML = `
-    <div class="margin:16px; font-family:$sans-serif; font-size:16px; color:#fff;">
-      <label>
-        <input type="checkbox" checked id="autoprefixerOption" />
-        Enable Autoprefixer
+    <div class="margin:16px; font-family:$sans-serif; font-size:16px; color:#7e7c8d;">
+      <label class="display:flex; align-items:center;">
+        <input id="autoprefixerOption" type="checkbox" class="
+          appearance:none;
+          border-width:1px;
+          border-style:solid;
+          border-color:#7e7c8d;
+          width:16px;
+          height:16px;
+          :focus{outline-width:1px;}
+          :focus{outline-style:solid;}
+          :focus{outline-color:#7e7c8d;}
+          position:relative;
+          ::after{position:absolute;}
+          ::after{top:2px;}
+          ::after{left:2px;}
+          :checked::after{content:'';}
+          ::after{width:10px;}
+          ::after{height:10px;}
+          ::after{background:url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2716px%27%20viewBox=%270%200%2024%2024%27%3E%3Cpath%20d=%27M20.285%202l-11.285%2011.567-5.286-5.011-3.714%203.716%209%208.728%2015-15.285z%27%20fill=%27%23fff%27/%3E%3C/svg%3E');}
+          ::after{background-size:10px;}
+          ::after{background-repeat:no-repeat;}
+          ::after{background-position:center;}
+          cbx
+        " checked />
+        <span class="
+          cbx:checked+color:#fff;
+          display:inline-block;
+          margin-left:4px;
+          font-family:$sans-serif;
+          font-size:14px;
+        ">
+          Enable Autoprefixer
+        </span>
       </label>
     </div>
   `;
