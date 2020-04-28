@@ -72,6 +72,7 @@ const hacssPlugins = {
           border-width:1px;
           border-style:solid;
           border-color:#7e7c8d;
+          border-radius:0;
           width:16px;
           height:16px;
           :focus{outline-width:1px;}
