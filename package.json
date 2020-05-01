@@ -10,11 +10,12 @@
     "build": "webpack"
   },
   "devDependencies": {
+    "@hacss/plugin-variables": "^1.1.1",
     "ace-builds": "^1.4.9",
     "autoprefixer": "^9.7.6",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.5.2",
-    "hacss": "git+https://github.com/hacss/hacss.git",
+    "hacss": "^2.0.2",
     "html-webpack-plugin": "^4.2.0",
     "html-webpack-tags-plugin": "^2.0.17",
     "postcss": "^7.0.27",

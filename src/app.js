@@ -6,13 +6,12 @@ const autoprefixer = require("autoprefixer");
 const postcss = require("postcss");
 const scopify = require("postcss-scopify");
 
-const hacssPlugins = {
-  "global-variables": require("hacss/plugins/global-variables.js"),
-  "indexed-variables": require("hacss/plugins/indexed-variables.js"),
+const libs = {
+  "@hacss/plugin-variables": require("@hacss/plugin-variables"),
 };
 
 (function() {
-  window.hacssPlugins = hacssPlugins;
+  window.libs = libs;
 
   const style = document.createElement("style");
   document.head.appendChild(style);
@@ -228,8 +227,8 @@ const hacssPlugins = {
           Function(
             config
               .replace(
-                /require\(["']hacss\/plugins\/(.*)['"]\)/g,
-                (a, b) => `window.hacssPlugins["${b}"]`,
+                /require\(["'](.*)['"]\)/g,
+                (a, b) => `window.libs["${b}"]`,
               )
               .replace(/module\.exports\s?=\s?/, "return ")
           )();
