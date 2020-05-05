@@ -1,0 +1,13 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hellojs/2.0.0-4/hello.all.js"></script>
+<script>
+  hello.init({ github: "Iv1.2424f07eccb79c36" }, {
+		oauth_proxy: 'https://auth-server.herokuapp.com/proxy'
+	} );
+
+    hello.on('auth.login', function(auth) {
+
+      console.log(auth);
+
+    });
+</script>
+<button onclick="hello('github').login()">github</button>

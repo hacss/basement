@@ -13,6 +13,7 @@ module.exports = {
   mode: "production",
   plugins: [
     new CopyPlugin([
+      { from: "hello.html" },
       {
         from: "node_modules/ace-builds/src-min/**/*",
         to: "ace",
