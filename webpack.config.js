@@ -14,6 +14,7 @@ module.exports = {
   plugins: [
     new CopyPlugin([
       { from: "hello.html" },
+      { from: "redirect.html" },
       {
         from: "node_modules/ace-builds/src-min/**/*",
         to: "ace",
