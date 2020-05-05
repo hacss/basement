@@ -10,4 +10,4 @@
 
     });
 </script>
-<button onclick="hello('github').login().catch(console.error.bind(console))">github</button>
+<button onclick="hello('github').login({ response_type: 'code' }).catch(console.error.bind(console))">github</button>
