@@ -35,7 +35,7 @@ module.exports = (_, { mode }) => ({
       },
     ]),
     new HtmlPlugin({
-      title: "Hacss Workbench",
+      title: "Basement Hacss",
       meta: {
         viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
       },
