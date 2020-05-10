@@ -16,6 +16,10 @@ module.exports = (_, { mode }) => ({
     dompurify: "DOMPurify",
     indent: "indent",
     "lz-string": "LZString",
+    "prop-types": "PropTypes",
+    react: "React",
+    "react-ace": "ReactAce",
+    "react-dom": "ReactDOM",
   },
   resolve: {
     extensions: [".js", ".jsx"],
@@ -42,6 +46,14 @@ module.exports = (_, { mode }) => ({
         "https://fonts.googleapis.com/css?family=Inter:300,400,500&display=swap",
       ],
       scripts: [
+        `https://cdnjs.cloudflare.com/ajax/libs/react/16.13.1/umd/react.${
+          mode === "production" ? "production.min" : "development"
+        }.js`,
+        "https://cdnjs.cloudflare.com/ajax/libs/react-ace/8.1.0/react-ace.min.js",
+        `https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.13.1/umd/react-dom.${
+          mode === "production" ? "production.min" : "development"
+        }.js`,
+        "https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.min.js",
         "https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js",
         "https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.0.10/purify.min.js",
         "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/ace.min.js",
