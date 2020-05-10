@@ -4,32 +4,34 @@ const CopyPlugin = require("copy-webpack-plugin");
 const HtmlPlugin = require("html-webpack-plugin");
 const HtmlTagsPlugin = require("html-webpack-tags-plugin");
 
-module.exports = {
-  entry: ["hacss/output", "./src/app.js"],
+module.exports = (_, { mode }) => ({
+  entry: ["./src/main.js", "@hacss/build"],
   output: {
     path: path.join(__dirname, "public"),
-    filename: "app.js",
+    filename: "bundle.js",
   },
-  mode: "production",
+  mode: mode || "development",
+  externals: {
+    ace: "ace",
+    dompurify: "DOMPurify",
+    indent: "indent",
+    "lz-string": "LZString",
+  },
+  resolve: {
+    extensions: [".js", ".jsx"],
+  },
   plugins: [
     new CopyPlugin([
-      { from: "hello.html" },
-      { from: "redirect.html" },
       {
-        from: "node_modules/ace-builds/src-min/**/*",
-        to: "ace",
-        flatten: true,
+        from: "lib/autoprefixer.js",
+        transform: content => terser.minify(content.toString()).code,
       },
-      {
-         from: "lib/autoprefixer.js",
-         transform: content => terser.minify(content.toString()).code,
-       },
       {
         from: "CNAME",
       },
     ]),
     new HtmlPlugin({
-      title: "Basement Hacss",
+      title: "Hacss Workbench",
       meta: {
         viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
       },
@@ -37,75 +39,43 @@ module.exports = {
     new HtmlTagsPlugin({
       links: [
         "https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap",
-        "https://fonts.googleapis.com/css?family=Inter:300,400,500,700&display=swap",
+        "https://fonts.googleapis.com/css?family=Inter:300,400,500&display=swap",
       ],
       scripts: [
-        "ace/ace.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.0.10/purify.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/ace.min.js",
+        "https://unpkg.com/@hacss/core@1.0.1/dist/hacss.umd.min.js",
+        "https://unpkg.com/@hacss/plugin-copy@1.1.1/dist/hacss-plugin-copy.umd.min.js",
+        "https://unpkg.com/@hacss/plugin-delete@1.1.2/dist/hacss-plugin-delete.umd.min.js",
+        "https://unpkg.com/@hacss/plugin-expand@1.1.1/dist/hacss-plugin-expand.umd.min.js",
+        "https://unpkg.com/@hacss/plugin-variables@1.2.0/dist/hacss-plugin-variables.umd.min.js",
+        "https://unpkg.com/indent.js@0.3.5/lib/indent.min.js",
         "autoprefixer.js",
       ],
       append: false,
     }),
   ],
-  externals: ["ace", "autoprefixer"],
   module: {
     rules: [
       {
-        test: /hacss\/output/,
+        test: /@hacss\/build/,
         use: [
           "style-loader",
           "css-loader",
-          "postcss-loader",
           {
             loader: "val-loader",
             options: {
-              sources: "./src/app.js",
+              sources: ["src/**/*.js", "src/**/*.jsx"],
             },
           },
         ],
       },
       {
-        test: /test/,
-        use: [
-          {
-            loader: "raw-loader",
-            options: {
-              esModule: false,
-            },
-          },
-        ],
-      },
-      {
-        test: /\/test\/index\.html$/,
-        use: [
-          {
-            loader: "string-replace-loader",
-            options: {
-              search: /<link.*rel="stylesheet".*>\s*/g,
-              replace: "",
-            },
-          },
-        ],
-      },
-      {
-        test: /\/test\/config\.js$/,
-        use: [
-          {
-            loader: "string-replace-loader",
-            options: {
-              multiple: [
-                {
-                  search: "../plugins/global-variables.js",
-                  replace: "hacss/plugins/global-variables",
-                },
-                {
-                  search: "../plugins/indexed-variables.js",
-                  replace: "hacss/plugins/indexed-variables",
-                },
-              ],
-            },
-          },
-        ],
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: ["babel-loader"],
       },
     ],
   },
-};
+});
