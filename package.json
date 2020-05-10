@@ -4,6 +4,7 @@
   "description": "Brower-based code editor that uses Hacss.",
   "main": "public/index.html",
   "scripts": {
+    "build": "webpack --production",
     "postinstall": "mkdirp lib && nugget http://raw.githubusercontent.com/ai/autoprefixer-rails/master/vendor/autoprefixer.js -o lib/autoprefixer.js",
     "test": "echo \"You should add some tests.\""
   },
