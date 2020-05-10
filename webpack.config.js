@@ -61,7 +61,6 @@ module.exports = (_, { mode }) => ({
         "https://unpkg.com/@hacss/plugin-delete@1.1.2/dist/hacss-plugin-delete.umd.min.js",
         "https://unpkg.com/@hacss/plugin-expand@1.1.1/dist/hacss-plugin-expand.umd.min.js",
         "https://unpkg.com/@hacss/plugin-variables@1.2.0/dist/hacss-plugin-variables.umd.min.js",
-        "https://unpkg.com/indent.js@0.3.5/lib/indent.min.js",
         "autoprefixer.js",
       ],
       append: false,
