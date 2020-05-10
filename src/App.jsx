@@ -4,7 +4,6 @@ import Feature from "./Feature";
 import Preview from "./Preview";
 import Status from "./Status";
 import TitleBar from "./TitleBar";
-import indent from "indent";
 import useLocationState from "./useLocationState";
 import useStyleWorker from "./useStyleWorker";
 
@@ -25,15 +24,7 @@ const resultCode = result => {
 };
 
 const App = () => {
-  const [[html, config, title], setState] = useLocationState(
-    ["", "", ""],
-    state => state.map(x => x.replace(/^\s+/gm, "")),
-    ([html, config, title]) => [
-      indent.html(html, { tabSize: 2 }),
-      indent.js(config, { tabSize: 2 }),
-      title,
-    ],
-  );
+  const [[html, config, title], setState] = useLocationState(["", "", ""]);
 
   const setHtml = html => setState([html, config, title]);
   const setConfig = config => setState([html, config, title]);

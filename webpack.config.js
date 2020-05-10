@@ -14,7 +14,6 @@ module.exports = (_, { mode }) => ({
   externals: {
     ace: "ace",
     dompurify: "DOMPurify",
-    indent: "indent",
     "lz-string": "LZString",
     "prop-types": "PropTypes",
     react: "React",
