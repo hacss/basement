@@ -62,8 +62,9 @@ const App = () => {
         position:absolute;
         top:96px;
         left:32px;
+        @sm-x{left:16px;}
         right:calc(50%+16px);
-        @sm-x{right:32px;}
+        @sm-x{right:16px;}
         bottom:calc(50%-16px);
         @sm-y{display:none;}
       `}
@@ -78,6 +79,7 @@ const App = () => {
         top:96px;
         left:calc(50%+16px);
         right:32px;
+        bottom:calc(50%-16px);
         bottom:calc(50%-16px);
         @sm-x{display:none;}
         @sm-y{display:none;}
@@ -96,10 +98,13 @@ const App = () => {
         className={`
         position:absolute;
         top:calc(50%+48px);
-        @sm-y{top:96px;}
+        @sm-y{top:80px;}
         left:32px;
+        @sm-x{left:16px;}
         right:32px;
+        @sm-x{right:16px;}
         bottom:32px;
+        @sm-y{bottom:16px;}
         overflow:hidden;
       `}
       >
