@@ -30,6 +30,8 @@ const TitleBar = ({ title, onTitleChange }) => (
       onInput={e => onTitleChange(e.target.value)}
       className={`
         flex:1;
+        width:auto;
+        text-overflow:ellipsis;
         border:none;
         margin-left:12px;
         margin-y:0;
