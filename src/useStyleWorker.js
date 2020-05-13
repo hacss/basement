@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default callback => {
+  const [id, setId] = useState("");
   const [code, setCode] = useState("");
   const [config, setConfig] = useState("");
   const [worker, setWorker] = useState();
@@ -25,7 +26,7 @@ export default callback => {
     window.addEventListener("message", listener);
 
     return () => window.removeEventListener("message", listener);
-  }, [code, config]);
+  }, [callback, code, config]);
 
   useEffect(() => {
     const worker = document.createElement("iframe");
@@ -64,45 +65,39 @@ export default callback => {
                 }
               )
               .replace(/module\\.exports\\s*=/, "return ")
-          )();
+          )() || {};
+          config.scope = "#${id}";
         }
         catch (err) {
           return respond({ error: ["CONFIG", err.message] });
         }
 
-        var css;
+        var css, ignored;
         try {
-          css = window.parent.hacss(e.data.code, config);
+          var result = window.parent.hacss(e.data.code, config);
+          css = window.parent.autoprefixer.process(result.css).css;
+          ignored = result.ignored;
         }
         catch (err) {
+          // Most likely this is redundant, as @hacss/core@2 tries very hard not to throw.
           return respond({ error: ["HACSS", err.message] });
         }
 
-        var rules = css
-          .split("\\n")
-          .map(function(rule) {
-            try {
-              return [ [], [window.parent.autoprefixer.process(rule).css] ];
-            }
-            catch(e) {
-              return [ [rule], [] ];
-            }
-          })
-          .reduce(function(all, current) {
-            return [
-              all[0].concat(current[0]),
-              all[1].concat(current[1])
-            ];
-          }, [[], []]);
-
-        if (rules[0].length) {
+        if (ignored.length) {
           return respond({
-            warning: ["INVALID_RULES", rules[0].join("\\n")],
-            css: rules[1].join("\\n")
+            warning: [
+              "INVALID_RULES",
+              ignored
+                .map(function(x) {
+                  return x.className + " - " + x.error;
+                })
+                .join("\\n")
+            ],
+            css: css,
           });
         }
 
-        respond({ css: rules[1].join("\\n") });
+        respond({ css: css });
       };
     `;
 
@@ -110,14 +105,11 @@ export default callback => {
 
     setWorker(worker);
 
-    return () => {
-      document.body.removeChild(worker);
-      setWorker(null);
-    };
-  }, []);
+    return () => document.body.removeChild(worker);
+  }, [id]);
 
   useEffect(() => {
-    if (worker) {
+    if (worker && worker.contentWindow) {
       worker.contentWindow.postMessage(
         {
           type: "hacssReq",
@@ -129,5 +121,5 @@ export default callback => {
     }
   }, [code, config, worker]);
 
-  return [setCode, setConfig];
+  return [setId, setCode, setConfig];
 };

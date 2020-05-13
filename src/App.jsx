@@ -4,6 +4,7 @@ import Feature from "./Feature";
 import Preview from "./Preview";
 import Status from "./Status";
 import TitleBar from "./TitleBar";
+import uniqid from "uniqid";
 import useLocationState from "./useLocationState";
 import useStyleWorker from "./useStyleWorker";
 
@@ -24,6 +25,8 @@ const resultCode = result => {
 };
 
 const App = () => {
+  const [id] = useState(() => uniqid());
+
   const [[html, config, title], setState] = useLocationState(["", "", ""]);
 
   const setHtml = html => setState([html, config, title]);
@@ -31,7 +34,9 @@ const App = () => {
   const setTitle = title => setState([html, config, title]);
 
   const [result, setResult] = useState();
-  const [updateCode, updateConfig] = useStyleWorker(setResult);
+
+  const [updateId, updateCode, updateConfig] = useStyleWorker(setResult);
+  useEffect(() => updateId(id), [id, updateId]);
   useEffect(() => updateCode(html), [html, updateCode]);
   useEffect(() => updateConfig(config), [config, updateConfig]);
 
@@ -118,7 +123,7 @@ const App = () => {
             )
           }
         >
-          <Preview html={html} css={(result || {}).css || ""} />
+          <Preview id={id} html={html} css={(result || {}).css || ""} />
         </Feature>
       </div>
     </div>

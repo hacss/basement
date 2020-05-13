@@ -3,17 +3,9 @@ import PropTypes from "prop-types";
 import dompurify from "dompurify";
 import uniqid from "uniqid";
 
-const prefix = (prefix, css) =>
-  css
-    .split("\n")
-    .filter(x => x)
-    .map(x => [prefix, x].join(" "))
-    .join("\n");
-
 const sanitize = html => ({ __html: dompurify.sanitize(html) });
 
-const Preview = ({ html, css }) => {
-  const [id] = useState(() => uniqid());
+const Preview = ({ id, html, css }) => {
   const [style, setStyle] = useState();
 
   useEffect(() => {
@@ -28,7 +20,7 @@ const Preview = ({ html, css }) => {
 
   useEffect(() => {
     if (style) {
-      style.textContent = prefix(`#${id}`, css);
+      style.textContent = css;
     }
   }, [style, css]);
 
@@ -42,6 +34,7 @@ const Preview = ({ html, css }) => {
 };
 
 Preview.propTypes = {
+  id: PropTypes.string.isRequired,
   html: PropTypes.string.isRequired,
   css: PropTypes.string.isRequired,
 };
