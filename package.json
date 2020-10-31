@@ -1,5 +1,5 @@
 {
-  "name": "workbench.hacss.io",
+  "name": "basement.hacss.io",
   "version": "1.0.0",
   "description": "Brower-based code editor that uses Hacss.",
   "main": "public/index.html",
@@ -11,7 +11,7 @@
   "prettier": "@hacss/prettier-config",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hacss/workbench.hacss.io.git"
+    "url": "git+https://github.com/hacss/basement.hacss.io.git"
   },
   "keywords": [
     "hacss",
@@ -20,16 +20,16 @@
     "style",
     "code",
     "editor",
-    "workbench",
+    "basement",
     "playground",
     "sandbox"
   ],
   "author": "Nick Saunders",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hacss/workbench.hacss.io/issues"
+    "url": "https://github.com/hacss/basement.hacss.io/issues"
   },
-  "homepage": "https://github.com/hacss/workbench.hacss.io#readme",
+  "homepage": "https://github.com/hacss/basement.hacss.io#readme",
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
