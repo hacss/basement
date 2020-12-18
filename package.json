@@ -6,7 +6,7 @@
   "main": "public/index.html",
   "scripts": {
     "build": "webpack -p --env production",
-    "postinstall": "mkdirp lib && nugget https://raw.githubusercontent.com/ai/autoprefixer-rails/master/vendor/autoprefixer.js",
+    "postinstall": "spago install && mkdirp lib && nugget https://raw.githubusercontent.com/ai/autoprefixer-rails/master/vendor/autoprefixer.js -o lib/autoprefixer.js",
     "start": "webpack-dev-server",
     "test": "spago test"
   },
