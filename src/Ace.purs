@@ -56,6 +56,7 @@ handleAction = case _ of
       session <- H.liftEffect $ Editor.getSession editor
       H.liftEffect do
         Session.setMode "ace/mode/html" session
+        Session.setTabSize 2 session
         Editor.setTheme "ace/theme/chrome" editor
         void $ Editor.setValue text Nothing editor
       H.modify_ _ { editor = Just editor }
