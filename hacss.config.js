@@ -1,6 +1,3 @@
-const expand = require("@hacss/plugin-expand");
-const variables = require("@hacss/plugin-variables");
-
 const colors = {
   black: "black",
   blue100: "#d6fdf8",
@@ -48,15 +45,15 @@ const colors = {
   orange700: "#af5b18",
   orange800: "#8d410f",
   orange900: "#752e09",
-  red100: "#ffefe7",
-  red200: "#ffdbcf",
-  red300: "#ffc3b8",
-  red400: "#ffaca6",
-  red500: "#ff898b",
-  red600: "#db6470",
-  red700: "#b7455b",
-  red800: "#932b48",
-  red900: "#7a1a3d",
+  red100: "hsl(10,75%,90%)",
+  red200: "hsl(8,80%,80%)",
+  red300: "hsl(6,90%,70%)",
+  red400: "hsl(3,95%,60%)",
+  red500: "hsl(360,100%,50%)",
+  red600: "hsl(357,95%,40%)",
+  red700: "hsl(354,90%,30%)",
+  red800: "hsl(352,80%,25%)",
+  red900: "hsl(350,75%,22%)",
   scorpion100: "#f9e8ea",
   scorpion200: "#d7c6c8",
   scorpion300: "#b6a5a7",
@@ -69,27 +66,29 @@ const colors = {
   white: "white",
 };
 
-module.exports = {
-  mediaQueries: {
-    "sm-x": "only screen and (max-width: 599px)",
-    "md-x": "only screen and (min-width: 600px) and (max-width: 999px)",
-    "lg-x": "only screen and (min-width: 1000px)",
-    "sm-y": "only screen and (max-height: 599px)",
-    "md-y": "only screen and (min-height: 600px) and (max-height: 1079px)",
-    "lg-y": "only screen and (min-height: 1080px)",
-  },
-  plugins: [
-    variables({
-      ...colors,
-      "font-family": {
-        display: "'Do Hyeon', sans-serif",
-        sans: "'Inter', sans-serif",
-      },
-      "url-encode": encodeURIComponent,
-    }),
-    expand({
-      "margin-x": ["margin-left", "margin-right"],
-      "padding-x": ["padding-left", "padding-right"],
-    }),
-  ],
+const spacing = {
+  ...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96]
+    .map(x => ({ [`space${x}`]: `${x / 4}rem` }))
+    .reduce((xs, x) => ({ ...xs, ...x }), {}),
+};
+
+exports.atScopes = {
+  "sm-x": "media only screen and (max-width: 599px)",
+  "md-x": "media only screen and (min-width: 600px) and (max-width: 999px)",
+  "lg-x": "media only screen and (min-width: 1000px)",
+  "sm-y": "media only screen and (max-height: 599px)",
+  "md-y": "media only screen and (min-height: 600px) and (max-height: 1079px)",
+  "lg-y": "media only screen and (min-height: 1080px)",
+};
+
+exports.variables = {
+  ...colors,
+  ...spacing,
+  "font-button": "400 0.875rem/1 'Inter', sans-serif",
+  "font-heading": "400 0.75rem/1 'BM DoHyeon', sans-serif",
+  "font-heading-lg": "400 1rem/1 'BM DoHyeon', sans-serif",
+  "font-default": "400 1rem/1.25 'Inter', sans-serif",
+  "font-input": "400 0.875rem/1 'Inter', sans-serif",
+  "font-status": "400 0.75rem/1 'Inter', sans-serif",
+  "font-title": "400 1.5rem/1 'Inter', sans-serif",
 };
