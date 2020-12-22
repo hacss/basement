@@ -36,7 +36,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@babel/preset-env": "^7.12.10",
     "@hacss/build": "^4.1.0",
-    "@hacss/core": "^4.0.4",
+    "@hacss/core": "^4.0.5",
     "ace-builds": "^1.4.12",
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^7.0.0",
