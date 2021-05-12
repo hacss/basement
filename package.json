@@ -47,7 +47,7 @@
     "html-webpack-plugin": "^4.5.0",
     "html-webpack-tags-plugin": "^2.0.17",
     "lz-string": "^1.4.4",
-    "postcss": "^8.2.1",
+    "postcss": "^8.2.10",
     "postcss-axis": "^0.1.2",
     "postcss-inset": "^1.0.0",
     "postcss-loader": "^4.1.0",
